@@ -14,12 +14,14 @@ I was decide to use the MVC design pattern for the UI combined with the FACADE D
 If we want in the future to add a new provider, simply we can add a new provider to Firebase Remote Config and it will synced automatically on the lunch of the app.
 
 ###### Firebase Credentials
+```
 url: https://console.firebase.google.com
 email: ltm.smishael@gmail.com
 password: Sm@151988
 Project Name: JobFinder
-
+```
 ###### Remote Config JSON Structure
+```
 id -> Sequential integer starting from 1
 name -> Provider Name
 dataUrl -> Provider Job GET Api
@@ -35,4 +37,4 @@ dateFormate -> the Date formate for creation date
 keys -> The keys refrence inside each model
      *↳* appKey -> The supported keys inside the app which is (jobTitle, company, location, creationDate, detailsUrl, companyLogo(Optional))
      *↳* jsonKey -> The API model key
-      
+```
