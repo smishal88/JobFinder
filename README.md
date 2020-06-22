@@ -11,4 +11,28 @@ I was decide to use the MVC design pattern for the UI combined with the FACADE D
 
 
 ## Scalability
-If we want in the future to add a new provider, simply we have to add it the **Providers** enum, create the operator function that get the data, finally, update the ***JobModel*** initializer to be suitable for the new model. and we could replace these steps by create a Firebase account and use there remote config to make it dynamic.
+If we want in the future to add a new provider, simply we can add a new provider to Firebase Remote Config and it will synced automatically on the lunch of the app.
+
+###### Firebase Credentials
+url: https://console.firebase.google.com
+email: ltm.smishael@gmail.com
+password: Sm@151988
+Project Name: JobFinder
+
+###### Remote Config JSON Structure
+id -> Sequential integer starting from 1
+name -> Provider Name
+dataUrl -> Provider Job GET Api
+positionParam -> the parameter key for position inside the api query string
+locationParam -> the parameter key for location inside the api query string
+auth -> The Auth object if exist for the provider 
+     *↳* key -> The Auth Key
+     *↳* value -> The Auth value
+  
+keyStrategy (Optional) -> The path of target array of jobs inside the response, this path should be joined by '>' char
+preMapping (Optional) -> If we want to map the target array and get a specific value from each object in the array 
+dateFormate -> the Date formate for creation date
+keys -> The keys refrence inside each model
+     *↳* appKey -> The supported keys inside the app which is (jobTitle, company, location, creationDate, detailsUrl, companyLogo(Optional))
+     *↳* jsonKey -> The API model key
+      
