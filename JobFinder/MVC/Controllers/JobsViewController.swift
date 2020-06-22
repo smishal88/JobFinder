@@ -14,7 +14,7 @@ class JobsViewController: UIViewController {
     @IBOutlet weak var noJobLb: UILabel!
     
     private var jobs    : [JobModel] = []
-    private var provider: Providers = .all
+    private var provider: ProviderModel? // nil for All Providers
     private var position: String?
     private var location: String?
     
@@ -54,14 +54,14 @@ class JobsViewController: UIViewController {
     @IBAction func filterAction(_ sender: Any) {
         if isFilterationPresented {return}
         isFilterationPresented = true
-        let filterView = FilterationView(provider: provider.rawValue, position: position, location: location) { [weak self] provider, position, location in
+        let filterView = FilterationView(provider: provider, position: position, location: location) { [weak self] provider, position, location in
             
-            guard let strongeSelf = self else {return}
-            strongeSelf.provider = Providers(rawValue: provider) ?? .all
-            strongeSelf.position = position
-            strongeSelf.location = location
-            strongeSelf.fetchData()
-            strongeSelf.isFilterationPresented = false
+            guard let `self` = self else {return}
+            self.provider = provider
+            self.position = position
+            self.location = location
+            self.fetchData()
+            self.isFilterationPresented = false
         }
         
         filterView.translatesAutoresizingMaskIntoConstraints = false

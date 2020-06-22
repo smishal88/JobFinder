@@ -10,14 +10,14 @@ import UIKit
 
 class FilterationView: UIView {
 
-    var doneHandler:((_ provider: Int,_ position: String?,_ location: String?)->Void)?
+    var doneHandler:((_ provider: ProviderModel?,_ position: String?,_ location: String?)->Void)?
     
     private let filterationView : UIView?
-    private var selectedProvider: Int = 0
+    private var selectedProvider: ProviderModel?  // nil for All Providers
     private var selectedPosition: String?
     private var selectedLocation: String?
     
-    init(provider: Int, position: String?, location: String?, handler:((_ provider: Int,_ position: String?,_ location: String?)->Void)?) {
+    init(provider: ProviderModel?, position: String?, location: String?, handler:((_ provider: ProviderModel?,_ position: String?,_ location: String?)->Void)?) {
         filterationView = Bundle.main.loadNibNamed("FilterationView", owner: nil, options: nil)?.first as? UIView
         super.init(frame: .zero)
         doneHandler = handler
@@ -36,7 +36,7 @@ class FilterationView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup() {
+    private func setup() {
         backgroundColor = UIColor(white: 0.3, alpha: 0.5)
         if let view = filterationView {
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -87,20 +87,20 @@ extension FilterationView: UICollectionViewDataSource, UICollectionViewDelegate,
             return UICollectionViewCell()
         }
         if indexPath.item == 0 {
-            cell.setup(title: "All", isSelected: selectedProvider == 0)
+            cell.setup(title: "All", isSelected: selectedProvider == nil)
         } else {
             let model = ProvidersManager.shared.providers[indexPath.item - 1]
-            cell.setup(title: model.name, isSelected: model.id == selectedProvider)
+            cell.setup(title: model.name, isSelected: model.id == (selectedProvider?.id ?? 0))
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
-            selectedProvider = 0
+            selectedProvider = nil
         } else {
             let model = ProvidersManager.shared.providers[indexPath.item - 1]
-            selectedProvider = model.id
+            selectedProvider = model
         }
         collectionView.reloadData()
     }

@@ -9,13 +9,6 @@
 import UIKit
 import Alamofire
 
-//MARK: - Compatible Providers
-enum Providers: Int {
-    case all = 0
-    case gitHub = 1 // The GitHub Id
-    case usaJobs = 2 // The USA Id
-}
-
 //MARK: - The main operator for Job Finder
 class APIOperator: NSObject {
 
@@ -30,23 +23,14 @@ class APIOperator: NSObject {
     private var usaRequest: DataRequest?
     
     /// This is the main function to fetch job from any provider with any search criteria
-    /// - parameter provider: The selected provider (gitHub, usaJobs, all)
+    /// - parameter provider: The selected provider and if nill it will search in all providers
     /// - parameter position: To filter the data by provided Job Position
     /// - parameter location: To filter the data by provided Job Location or Address
-    func getJobs(provider: Providers, position: String?, location: String?, completion:((_ results: [JobModel])->Void)?) {
+    func getJobs(provider: ProviderModel?, position: String?, location: String?, completion:((_ results: [JobModel])->Void)?) {
         
-        switch provider {
-        case .gitHub, .usaJobs:
-            let providerModel = ProvidersManager.shared.providers.first(where: { (model) -> Bool in
-                return model.id == provider.rawValue
-            })
-            guard let model = providerModel else {
-                completion?([])
-                return
-            }
+        if let model = provider {
             self.getJobs(provider: model, position: position, location: location, completion: completion)
-            break
-        case .all:
+        } else {
             let group = DispatchGroup()
             var results: [JobModel] = []
             var completedCount = 0
@@ -68,7 +52,6 @@ class APIOperator: NSObject {
                     completion?(results)
                 }
             }
-            break
         }
     }
     
