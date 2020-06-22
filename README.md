@@ -22,19 +22,19 @@ Project Name: JobFinder
 ```
 ###### Remote Config JSON Structure
 ```
-id -> Sequential integer starting from 1
-name -> Provider Name
-dataUrl -> Provider Job GET Api
-positionParam -> the parameter key for position inside the api query string
-locationParam -> the parameter key for location inside the api query string
-auth -> The Auth object if exist for the provider 
-     *↳* key -> The Auth Key
-     *↳* value -> The Auth value
+id              -> Sequential integer starting from 1
+name            -> Provider Name
+dataUrl         -> Provider Job GET Api
+positionParam   -> the parameter key for position inside the api query string
+locationParam   -> the parameter key for location inside the api query string
+auth            -> The Auth object if exist for the provider 
+                ↳ key -> The Auth Key
+                ↳ value -> The Auth value
   
-keyStrategy (Optional) -> The path of target array of jobs inside the response, this path should be joined by '>' char
-preMapping (Optional) -> If we want to map the target array and get a specific value from each object in the array 
-dateFormate -> the Date formate for creation date
-keys -> The keys refrence inside each model
-     *↳* appKey -> The supported keys inside the app which is (jobTitle, company, location, creationDate, detailsUrl, companyLogo(Optional))
-     *↳* jsonKey -> The API model key
+keyStrategy (Optional)  -> The path of target array of jobs inside the response, this path should be joined by '>' char
+preMapping (Optional)   -> If we want to map the target array and get a specific value from each object in the array 
+dateFormate             -> the Date formate for creation date
+keys                    -> The keys refrence inside each model
+                        ↳ appKey -> The supported keys inside the app which is (jobTitle, company, location, creationDate, detailsUrl, companyLogo(Optional))
+                        ↳ jsonKey -> The API model key
 ```
