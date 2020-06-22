@@ -8,3 +8,7 @@ However, these API's is to slow to implement an autocomplete, so i did the filte
 
 ###### Project Design Pattern
 I was decide to use the MVC design pattern for the UI combined with the FACADE Design Pattern for the core, this combination allow me to be more moduler while coding and let the business logic seperate from the model.
+
+
+## Scalability
+If we want in the future to add a new provider, simply we have to add it the **Providers** enum, create the operator function that get the data, finally, update the ***JobModel*** initializer to be suitable for the new model. and we could replace these steps by create a Firebase account and use there remote config to make it dynamic.
