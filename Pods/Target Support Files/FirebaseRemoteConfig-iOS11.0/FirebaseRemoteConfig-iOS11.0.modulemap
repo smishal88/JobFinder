@@ -1,0 +1,6 @@
+framework module FirebaseRemoteConfig {
+  umbrella header "FirebaseRemoteConfig-iOS11.0-umbrella.h"
+
+  export *
+  module * { export * }
+}
